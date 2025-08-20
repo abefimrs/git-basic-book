@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Practical Examples - Real-World Scenarios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #f6f8fa;
+            color: #24292e;
+        }
+        .page {
+            width: 1280px;
+            min-height: 4000px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f6f8fa 0%, #e1e4e8 100%);
+        }
+        .header {
+            background-color: #0366d6;
+            padding: 40px 70px;
+            color: white;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            font-size: 22px;
+            font-weight: 400;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+        .content {
+            padding: 40px 70px;
+        }
+        .topic-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .topic-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0366d6;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .topic-title i {
+            margin-right: 15px;
+            color: #0366d6;
+        }
+        .scenario {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e1e4e8;
+        }
+        .scenario:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .scenario-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0366d6;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .scenario-title i {
+            margin-right: 10px;
+            color: #0366d6;
+        }
+        .scenario-desc {
+            font-size: 18px;
+            color: #586069;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        .solution-steps {
+            background-color: #f6f8fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .step {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background-color: #0366d6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex-grow: 1;
+        }
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0366d6;
+            margin-bottom: 5px;
+        }
+        .step-desc {
+            font-size: 16px;
+            color: #586069;
+        }
+        .code-block {
+            background-color: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 16px;
+            color: #24292e;
+            overflow-x: auto;
+        }
+        .before-after {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .before, .after {
+            flex: 1;
+            background-color: #f6f8fa;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        .before-title, .after-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0366d6;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .before-title i, .after-title i {
+            margin-right: 8px;
+        }
+        .file-list {
+            font-family: monospace;
+            font-size: 16px;
+            color: #24292e;
+        }
+        .file-item {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        .file-item i {
+            font-size: 14px;
+            margin-right: 8px;
+            color: #586069;
+        }
+        .highlight {
+            color: #0366d6;
+            font-weight: 600;
+        }
+        .note-box {
+            background-color: #f1f8ff;
+            border-left: 4px solid #0366d6;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+        .note-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            color: #0366d6;
+        }
+        .note-title i {
+            margin-right: 8px;
+        }
+        .note-content {
+            font-size: 16px;
+            color: #586069;
+        }
+        .command {
+            font-family: monospace;
+            background-color: #f6f8fa;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 10px 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+        .command i {
+            margin-right: 10px;
+            color: #0366d6;
+        }
+        .nav-menu {
+            position: sticky;
+            top: 0;
+            background-color: #0366d6;
+            padding: 15px 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-title {
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .nav-link:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="nav-menu">
+            <div class="nav-container">
+                <div class="nav-title">Git Practical Examples</div>
+                <div class="nav-links">
+                    <a href="#section1" class="nav-link">Skip Staging</a>
+                    <a href="#section2" class="nav-link">Undo Changes</a>
+                    <a href="#section3" class="nav-link">Branching</a>
+                    <a href="#section4" class="nav-link">Merging</a>
+                    <a href="#section5" class="nav-link">Conflicts</a>
+                </div>
+            </div>
+        </nav>
+        
+        <header class="header">
+            <h1 class="title">Git Practical Examples - Real-World Scenarios</h1>
+            <p class="subtitle">Master Git through practical, situation-based examples that demonstrate common development workflows and problem-solving techniques</p>
+        </header>
+        
+        <div class="content">
+            <!-- Section 1: Skipping the Staging Area -->
+            <div id="section1" class="topic-section">
+                <h2 class="topic-title">
+                    <i class="fas fa-forward"></i>
+                    Skipping the Staging Area
+                </h2>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-trash-alt"></i>
+                        Scenario: Removing Temporary Files
+                    </h3>
+                    <p class="scenario-desc">
+                        You've been working on a project and created several temporary files for testing. Now you want to clean up your repository by removing these files before committing your final changes.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Identify temporary files</div>
+                                <div class="step-desc">List all temporary files in your project directory</div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Remove files using git rm</div>
+                                <div class="step-desc">Use the git rm command to delete files and stage the deletion in one step</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git rm temp_file1.txt temp_file2.txt temp_file3.txt</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Commit the changes</div>
+                                <div class="step-desc">The deletions are already staged, so you can commit directly</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git commit -m "Remove temporary files"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="before-after">
+                        <div class="before">
+                            <div class="before-title">
+                                <i class="fas fa-folder"></i>
+                                Before
+                            </div>
+                            <div class="file-list">
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>main.js</span>
+                                </div>
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>temp_file1.txt</span>
+                                </div>
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>temp_file2.txt</span>
+                                </div>
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>temp_file3.txt</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="after">
+                            <div class="after-title">
+                                <i class="fas fa-folder"></i>
+                                After
+                            </div>
+                            <div class="file-list">
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>main.js</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            Using <span class="highlight">git rm</span> combines two operations (deleting files and staging the deletion) into one command, saving you from having to separately stage the changes with <span class="highlight">git add</span>.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-arrows-alt"></i>
+                        Scenario: Reorganizing Project Structure
+                    </h3>
+                    <p class="scenario-desc">
+                        You're working on a project and realize that several JavaScript files would be better organized in a dedicated 'js' folder. You want to move these files to maintain a cleaner project structure.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Create the new directory</div>
+                                <div class="step-desc">Create the 'js' directory where you'll move the files</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>mkdir js</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Move files using git mv</div>
+                                <div class="step-desc">Use the git mv command to move files and stage the changes in one step</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git mv app.js js/</span>
+                                </div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git mv utils.js js/</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Commit the changes</div>
+                                <div class="step-desc">The file movements are already staged, so you can commit directly</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git commit -m "Reorganize JavaScript files into dedicated folder"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="before-after">
+                        <div class="before">
+                            <div class="before-title">
+                                <i class="fas fa-folder"></i>
+                                Before
+                            </div>
+                            <div class="file-list">
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>index.html</span>
+                                </div>
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>app.js</span>
+                                </div>
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>utils.js</span>
+                                </div>
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>styles.css</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="after">
+                            <div class="after-title">
+                                <i class="fas fa-folder"></i>
+                                After
+                            </div>
+                            <div class="file-list">
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>index.html</span>
+                                </div>
+                                <div class="file-item">
+                                    <i class="fas fa-folder"></i>
+                                    <span>js/</span>
+                                </div>
+                                <div class="file-item" style="margin-left: 20px;">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>app.js</span>
+                                </div>
+                                <div class="file-item" style="margin-left: 20px;">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>utils.js</span>
+                                </div>
+                                <div class="file-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>styles.css</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            Using <span class="highlight">git mv</span> preserves the file's history, unlike using the system's mv command followed by git add. This is important for maintaining a complete project history.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 2: Undoing Changes -->
+            <div id="section2" class="topic-section">
+                <h2 class="topic-title">
+                    <i class="fas fa-undo"></i>
+                    Undoing Changes
+                </h2>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Scenario: Reverting an Incorrect Commit
+                    </h3>
+                    <p class="scenario-desc">
+                        You've just committed a change that introduced a bug to your application. You need to revert this commit to restore the previous working state of the code.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Identify the problematic commit</div>
+                                <div class="step-desc">Use git log to find the commit hash of the commit you want to revert</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git log --oneline</span>
+                                </div>
+                                <div class="code-block">
+                                    a1b2c3d (HEAD -> main) Add new feature that breaks existing functionality<br>
+                                    e4f5g6h Fix login bug<br>
+                                    i7j8k9l Update documentation
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Revert the commit</div>
+                                <div class="step-desc">Use git revert with the commit hash to create a new commit that undoes the changes</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git revert a1b2c3d</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Verify the reversion</div>
+                                <div class="step-desc">Check that the changes have been properly reverted</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git log --oneline</span>
+                                </div>
+                                <div class="code-block">
+                                    m9n8o7p (HEAD -> main) Revert "Add new feature that breaks existing functionality"<br>
+                                    a1b2c3d Add new feature that breaks existing functionality<br>
+                                    e4f5g6h Fix login bug<br>
+                                    i7j8k9l Update documentation
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            <span class="highlight">git revert</span> creates a new commit that undoes the changes from a previous commit. This is different from <span class="highlight">git reset</span>, which removes commits entirely from the history. Revert is safer for shared repositories.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-edit"></i>
+                        Scenario: Fixing a Commit Message
+                    </h3>
+                    <p class="scenario-desc">
+                        You've just committed a change but noticed a typo in the commit message. You want to fix the message without changing any of the actual code changes.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Check the current commit</div>
+                                <div class="step-desc">Verify the commit message that needs to be fixed</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git log --oneline -1</span>
+                                </div>
+                                <div class="code-block">
+                                    a1b2c3d (HEAD -> main) Addd new user authentication feature
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Amend the commit message</div>
+                                <div class="step-desc">Use git commit --amend to fix the commit message</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git commit --amend -m "Add new user authentication feature"</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Verify the fix</div>
+                                <div class="step-desc">Check that the commit message has been corrected</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git log --oneline -1</span>
+                                </div>
+                                <div class="code-block">
+                                    f4g5h6i (HEAD -> main) Add new user authentication feature
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            <span class="highlight">git commit --amend</span> allows you to modify the most recent commit. It's useful for fixing typos in commit messages or adding forgotten changes to the last commit. However, don't amend commits that have already been pushed to a shared repository.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 3: Branching and Merging Concepts -->
+            <div id="section3" class="topic-section">
+                <h2 class="topic-title">
+                    <i class="fas fa-code-branch"></i>
+                    Branching and Merging Concepts
+                </h2>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Scenario: Feature Development Workflow
+                    </h3>
+                    <p class="scenario-desc">
+                        You're working on a team developing a web application. You need to implement a new feature while other team members continue working on the main codebase. You want to keep your work isolated until it's ready for integration.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Create a feature branch</div>
+                                <div class="step-desc">Create a new branch for your feature development</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git checkout -b feature/user-profile main</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Develop the feature</div>
+                                <div class="step-desc">Make changes and commit them to your feature branch</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git add .</span>
+                                </div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git commit -m "Add user profile page structure"</span>
+                                </div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git add .</span>
+                                </div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git commit -m "Implement user profile functionality"</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Switch back to main branch</div>
+                                <div class="step-desc">Return to the main branch to integrate your feature</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git checkout main</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Merge the feature branch</div>
+                                <div class="step-desc">Merge your feature branch into the main branch</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git merge feature/user-profile</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">Clean up</div>
+                                <div class="step-desc">Delete the feature branch after merging</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git branch -d feature/user-profile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            Branching allows you to <span class="highlight">isolate your work</span> from the main codebase. This is especially important in team environments where multiple developers are working on different features simultaneously.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-bug"></i>
+                        Scenario: Hotfix for Production Issue
+                    </h3>
+                    <p class="scenario-desc">
+                        Your team has discovered a critical bug in the production version of your application. You need to fix it quickly while other development continues on the main branch.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Create a hotfix branch</div>
+                                <div class="step-desc">Create a branch from the production tag or commit</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git checkout -b hotfix/critical-bug v1.0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Implement the fix</div>
+                                <div class="step-desc">Make the necessary changes to fix the bug</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git add .</span>
+                                </div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git commit -m "Fix critical security vulnerability"</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Tag the fixed version</div>
+                                <div class="step-desc">Create a new tag for the fixed version</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git tag -a v1.0.1 -m "Critical bug fix"</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Merge to main branch</div>
+                                <div class="step-desc">Switch to main and merge the hotfix</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git checkout main</span>
+                                </div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git merge hotfix/critical-bug</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">Clean up</div>
+                                <div class="step-desc">Delete the hotfix branch</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git branch -d hotfix/critical-bug</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            Hotfix branches are <span class="highlight">short-lived branches</span> created directly from production tags. They allow you to fix critical issues without disrupting ongoing development work on other branches.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 4: Using Merging to Combine Data -->
+            <div id="section4" class="topic-section">
+                <h2 class="topic-title">
+                    <i class="fas fa-object-group"></i>
+                    Using Merging to Combine Data
+                </h2>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-users"></i>
+                        Scenario: Integrating Team Work
+                    </h3>
+                    <p class="scenario-desc">
+                        Your team has been working on different features in separate branches. Now it's time to integrate everyone's work into the main branch for the next release.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Switch to main branch</div>
+                                <div class="step-desc">Ensure you're on the main branch where you'll merge all features</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git checkout main</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Update main branch</div>
+                                <div class="step-desc">Pull the latest changes to ensure your main branch is up to date</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git pull origin main</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Merge first feature branch</div>
+                                <div class="step-desc">Merge the first feature branch into main</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git merge feature/user-authentication</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Merge remaining feature branches</div>
+                                <div class="step-desc">Continue merging other feature branches one by one</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git merge feature/payment-processing</span>
+                                </div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git merge feature/reporting-dashboard</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">Resolve any conflicts</div>
+                                <div class="step-desc">If conflicts occur during merging, resolve them and continue</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git add .</span>
+                                </div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git commit</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <div class="step-title">Push the integrated code</div>
+                                <div class="step-desc">Push the merged main branch to the remote repository</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git push origin main</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            When merging multiple branches, it's often best to <span class="highlight">merge one branch at a time</span> and resolve any conflicts immediately. This makes the process more manageable than trying to merge multiple branches simultaneously.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-code-branch"></i>
+                        Scenario: Merging with Rebase for Clean History
+                    </h3>
+                    <p class="scenario-desc">
+                        You want to integrate your feature branch into the main branch, but you prefer to maintain a clean, linear project history without merge commits.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Switch to your feature branch</div>
+                                <div class="step-desc">Ensure you're on the branch you want to integrate</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git checkout feature/user-profile</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Update the feature branch</div>
+                                <div class="step-desc">Fetch the latest changes from the main branch</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git fetch origin</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Rebase onto main</div>
+                                <div class="step-desc">Rebase your feature branch onto the latest main branch</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git rebase origin/main</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Switch to main branch</div>
+                                <div class="step-desc">Move to the main branch for the final integration</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git checkout main</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">Fast-forward merge</div>
+                                <div class="step-desc">Perform a fast-forward merge since the branches are now aligned</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git merge feature/user-profile</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <div class="step-title">Clean up</div>
+                                <div class="step-desc">Delete the feature branch after successful integration</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git branch -d feature/user-profile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            <span class="highlight">Rebase</span> rewrites your branch's history by moving its base to a newer commit. This creates a <span class="highlight">linear history</span> without merge commits, which can be easier to read and understand. However, never rebase commits that have already been shared with others.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 5: Managing Merge Conflicts -->
+            <div id="section5" class="topic-section">
+                <h2 class="topic-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Managing Merge Conflicts
+                </h2>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-file-code"></i>
+                        Scenario: Conflicting Changes in the Same File
+                    </h3>
+                    <p class="scenario-desc">
+                        You and a teammate have both made changes to the same file in different branches. When you try to merge your branches, Git reports a conflict that needs to be resolved manually.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Attempt the merge</div>
+                                <div class="step-desc">Try to merge the branches, which will result in a conflict</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git merge feature/user-profile</span>
+                                </div>
+                                <div class="code-block">
+                                    Auto-merging app.js<br>
+                                    CONFLICT (content): Merge conflict in app.js<br>
+                                    Automatic merge failed; fix conflicts and then commit the result.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Check the status</div>
+                                <div class="step-desc">Use git status to see which files have conflicts</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git status</span>
+                                </div>
+                                <div class="code-block">
+                                    On branch main<br>
+                                    You have unmerged paths.<br>
+                                    (fix conflicts and run "git commit")<br>
+                                    (use "git merge --abort" to abort the merge)<br><br>
+                                    Changes to be committed:<br><br>
+                                    modified:   styles.css<br><br>
+                                    Unmerged paths:<br>
+                                    (use "git add <file>..." to mark resolution)<br><br>
+                                    both modified:   app.js
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Open the conflicted file</div>
+                                <div class="step-desc">Edit the file to resolve the conflicts</div>
+                                <div class="code-block">
+                                    function updateUser() {<br>
+                                    <<<<<<< HEAD<br>
+                                    // Current branch implementation<br>
+                                    const user = getUserById(id);<br>
+                                    user.name = newName;<br>
+                                    saveUser(user);<br>
+                                    =======<br>
+                                    // Feature branch implementation<br>
+                                    const user = await fetchUser(id);<br>
+                                    user.updateProfile({name: newName});<br>
+                                    await user.save();<br>
+                                    >>>>>>> feature/user-profile<br>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Resolve the conflict</div>
+                                <div class="step-desc">Edit the file to keep the desired changes and remove conflict markers</div>
+                                <div class="code-block">
+                                    function updateUser() {<br>
+                                    // Resolved implementation combining both approaches<br>
+                                    const user = await fetchUser(id);<br>
+                                    user.name = newName;<br>
+                                    await user.save();<br>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <div class="step-title">Stage the resolved file</div>
+                                <div class="step-desc">Mark the conflict as resolved by staging the file</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git add app.js</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <div class="step-title">Complete the merge</div>
+                                <div class="step-desc">Commit to finalize the merge</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git commit -m "Merge feature/user-profile with conflict resolution"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            When resolving conflicts, Git marks the conflicted areas with <span class="highlight"><<<<<<<</span>, <span class="highlight">=======</span>, and <span class="highlight">>>>>>></span> markers. You need to manually edit the file to keep the desired changes and remove these markers before staging the file.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scenario">
+                    <h3 class="scenario-title">
+                        <i class="fas fa-times-circle"></i>
+                        Scenario: Aborting a Problematic Merge
+                    </h3>
+                    <p class="scenario-desc">
+                        You've started a merge operation but realize it's creating too many conflicts or you're not ready to complete it. You want to abort the merge and return to the pre-merge state.
+                    </p>
+                    
+                    <div class="solution-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <div class="step-title">Start a problematic merge</div>
+                                <div class="step-desc">Begin a merge that results in conflicts</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git merge feature/experimental-changes</span>
+                                </div>
+                                <div class="code-block">
+                                    Auto-merging app.js<br>
+                                    CONFLICT (content): Merge conflict in app.js<br>
+                                    Auto-merging styles.css<br>
+                                    CONFLICT (content): Merge conflict in styles.css<br>
+                                    Automatic merge failed; fix conflicts and then commit the result.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <div class="step-title">Check the status</div>
+                                <div class="step-desc">Verify that you're in a merge state with conflicts</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git status</span>
+                                </div>
+                                <div class="code-block">
+                                    On branch main<br>
+                                    You have unmerged paths.<br>
+                                    (fix conflicts and run "git commit")<br>
+                                    (use "git merge --abort" to abort the merge)<br><br>
+                                    Unmerged paths:<br>
+                                    (use "git add <file>..." to mark resolution)<br><br>
+                                    both modified:   app.js<br>
+                                    both modified:   styles.css
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <div class="step-title">Abort the merge</div>
+                                <div class="step-desc">Use git merge --abort to cancel the merge operation</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git merge --abort</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <div class="step-title">Verify the abort</div>
+                                <div class="step-desc">Check that you've returned to the pre-merge state</div>
+                                <div class="command">
+                                    <i class="fas fa-terminal"></i>
+                                    <span>git status</span>
+                                </div>
+                                <div class="code-block">
+                                    On branch main<br>
+                                    nothing to commit, working tree clean
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Key Point
+                        </div>
+                        <div class="note-content">
+                            <span class="highlight">git merge --abort</span> is a useful command when you want to cancel a merge operation and return to the state before the merge began. This is helpful when you realize you're not ready to merge or when the conflicts are too complex to resolve at the moment.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
