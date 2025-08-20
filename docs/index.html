@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Tutorial Topics Index</title>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background-color: #f6f8fa;
+            color: #24292e;
+        }
+        .page {
+            width: 1280px;
+            min-height: 2000px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f6f8fa 0%, #e1e4e8 100%);
+        }
+        .header {
+            background-color: #0366d6;
+            padding: 40px 70px;
+            color: white;
+        }
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            font-size: 22px;
+            font-weight: 400;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+        .content {
+            padding: 50px 70px;
+        }
+        .intro {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .intro-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #0366d6;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .intro-title i {
+            margin-right: 15px;
+        }
+        .intro-text {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #586069;
+        }
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 30px;
+        }
+        .topic-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: flex-start;
+        }
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .topic-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #f1f8ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            flex-shrink: 0;
+        }
+        .topic-icon i {
+            font-size: 30px;
+            color: #0366d6;
+        }
+        .topic-content {
+            flex-grow: 1;
+        }
+        .topic-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0366d6;
+            margin-bottom: 10px;
+        }
+        .topic-desc {
+            font-size: 18px;
+            color: #586069;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .topic-link {
+            display: inline-flex;
+            align-items: center;
+            color: #0366d6;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .topic-link:hover {
+            color: #0256cc;
+            text-decoration: underline;
+        }
+        .topic-link i {
+            margin-left: 8px;
+        }
+        .footer {
+            background-color: #24292e;
+            color: white;
+            padding: 30px 70px;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .footer-text {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="header">
+            <h1 class="title">Git Tutorial Topics Index</h1>
+            <p class="subtitle">Master essential Git concepts and workflows with our comprehensive tutorials</p>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2 class="intro-title">
+                    <i class="fas fa-book-open"></i>
+                    About This Tutorial Series
+                </h2>
+                <p class="intro-text">
+                    Git is a powerful distributed version control system that enables developers to track changes in their code, collaborate with others, and manage project history. This tutorial series covers essential Git concepts and workflows, from basic operations to advanced techniques like branching and merging. Each topic is designed to build upon previous knowledge, helping you develop a comprehensive understanding of Git's capabilities.
+                </p>
+            </div>
+            
+            <div class="topics-grid">
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-forward"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3 class="topic-title">Skipping the Staging Area</h3>
+                        <p class="topic-desc">
+                            Learn how to skip the staging area to delete and move files within Git efficiently. This topic covers commands that allow you to bypass the traditional staging process, streamlining your workflow for simple file operations.
+                        </p>
+                        <a href="git_skip_staging_area_complete.html" class="topic-link">
+                            View Tutorial <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3 class="topic-title">Undoing Changes</h3>
+                        <p class="topic-desc">
+                            Discover how to delete and rename files in a repository, as well as amend and roll back commits. This topic provides essential techniques for correcting mistakes and managing your project's history.
+                        </p>
+                        <a href="#" class="topic-link">
+                            View Tutorial <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3 class="topic-title">Branching and Merging Concepts</h3>
+                        <p class="topic-desc">
+                            Understand the fundamental concepts of branching and merging in Git. Learn how branches enable parallel development and how merging combines changes from different branches.
+                        </p>
+                        <a href="#" class="topic-link">
+                            View Tutorial <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-object-group"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3 class="topic-title">Using Merging to Combine Data</h3>
+                        <p class="topic-desc">
+                            Master the techniques of merging to combine branched data effectively. This topic covers different merge strategies and best practices for integrating changes from multiple branches.
+                        </p>
+                        <a href="#" class="topic-link">
+                            View Tutorial <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3 class="topic-title">Managing Merge Conflicts</h3>
+                        <p class="topic-desc">
+                            Learn how to handle and resolve merge conflicts that occur when changes in different branches conflict with each other. This topic provides practical strategies for identifying and fixing conflicts.
+                        </p>
+                        <a href="#" class="topic-link">
+                            View Tutorial <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p class="footer-text">© 2023 Git Tutorial Series. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
